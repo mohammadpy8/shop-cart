@@ -1,4 +1,4 @@
-import React, { createContext, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react';
 
 import { Produts } from '../types/products.types';
 
@@ -20,6 +20,18 @@ const CartContextProvider = ({ children }: CartProps) => {
 
     const [userCart, setUserCart] = useState<Produts[]>([]);
     const [shop, setShop] = useState<Produts[]>([]);
+
+    useEffect(() => {
+
+        fetch("https://fakestoreapi.com/products")
+            .then(res => res.json())
+            .then(data => {
+                console.log("data =>", data);
+                setShop(data);
+            })
+            .catch(err => console.log(err));
+
+    }, [])
     
     const addProduts = (id: number) => {
 
