@@ -1,22 +1,19 @@
 import React from "react";
+import { AiFillStar, AiOutlineStar, AiOutlineShoppingCart } from "react-icons/ai";
+
+import Headers from "./components/Headers";
 import "./App.css";
-import { AiFillStar, AiOutlineStar } from "react-icons/ai";
+import { useRoutes } from "react-router-dom";
+import routes from "./routes";
 function App() {
+
+  const router = useRoutes(routes);
+
   return (
     // <ContextDataProvider>
     <div className="app">
-      <header>
-        <a className="logo" href="#">
-          shop cart
-        </a>
-        <a href="#">
-          {/* <AiOutlineShoppingCart className="shop-icon" /> */}
-          <span>2</span>
-        </a>
-      </header>
-
       {/* Start Content */}
-
+      <Headers />
       <section>
         <p className="title">All Products:</p>
       </section>
