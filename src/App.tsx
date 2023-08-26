@@ -1,35 +1,79 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-
+import React from "react";
+import "./App.css";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
-    <div className="App">
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
+    // <ContextDataProvider>
+    <div className="app">
+      <header>
+        <a className="logo" href="#">
+          shop cart
         </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+        <a href="#">
+          {/* <AiOutlineShoppingCart className="shop-icon" /> */}
+          <span>2</span>
         </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      </header>
+
+      {/* Start Content */}
+
+      <section>
+        <p className="title">All Products:</p>
+      </section>
+      <img className="index-first-bg" src="/hero-gradient.svg" alt="" />
+      <main className="main-index">
+        <div className="card">
+          <img
+            src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+            alt=""
+          />
+          <main>
+            <p>Test Title ...</p>
+            <div className="card-details">
+              <div>
+                <AiOutlineStar style={{ color: "orange" }} />
+                <AiOutlineStar style={{ color: "orange" }} />
+                <AiOutlineStar style={{ color: "orange" }} />
+                <AiOutlineStar style={{ color: "orange" }} />
+                <AiOutlineStar style={{ color: "orange" }} />
+              </div>
+              <p>231$</p>
+            </div>
+            <button>Add to Basket</button>
+          </main>
+        </div>
+        <div className="card">
+          <img
+            src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
+            alt=""
+          />
+          <main>
+            <p>Test Title ...</p>
+            <div className="card-details">
+              <div>
+                <AiFillStar style={{ color: "orange" }} />
+                <AiFillStar style={{ color: "orange" }} />
+                <AiFillStar style={{ color: "orange" }} />
+                <AiFillStar style={{ color: "orange" }} />
+                <AiFillStar style={{ color: "orange" }} />
+              </div>
+              <p>231$</p>
+            </div>
+            <button>Add to Basket</button>
+          </main>
+        </div>
+      </main>
+
+      {/* Finish Content */}
+
+      <footer>
+        <a target={"_blank"}>
+          mohammad
+        </a>
+      </footer>
     </div>
-  )
+    // </ContextDataProvider>
+  );
 }
 
-export default App
+export default App;
