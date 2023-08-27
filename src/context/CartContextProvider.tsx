@@ -1,55 +1,48 @@
-import React, { createContext, useEffect, useState } from 'react';
+import React, { createContext, useEffect, useState } from 'react'
 
-import { Produts } from '../types/products.types';
+import { Produts } from '../types/products.types'
 
 type CartContextType = {
-    userCart: Produts[];
-    addProduts: (id: number) => void;
-    removeProduts: (id: number) => void;
-    removeAll: () => void;
+  userCart: Produts[]
+  addProduts: (id: number) => void
+  removeProduts: (id: number) => void
+  removeAll: () => void
     shop: Produts[];
-};
+}
 
 type CartProps = {
-    children: React.ReactNode;
-};
+  children: React.ReactNode
+}
 
-export const CartContext = createContext({} as CartContextType);
+export const CartContext = createContext({} as CartContextType)
 
 const CartContextProvider = ({ children }: CartProps) => {
+  const [userCart, setUserCart] = useState<Produts[]>([])
+  const [shop, setShop] = useState<Produts[]>([])
 
-    const [userCart, setUserCart] = useState<Produts[]>([]);
-    const [shop, setShop] = useState<Produts[]>([]);
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products')
+      .then((res) => res.json())
+      .then((data) => {
+        console.log('data =>', data)
+        setShop(data)
+      })
+      .catch((err) => console.log(err))
+  }, [])
 
-    useEffect(() => {
+  const addProduts = (id: number) => {}
 
-        fetch("https://fakestoreapi.com/products")
-            .then(res => res.json())
-            .then(data => {
-                console.log("data =>", data);
-                setShop(data);
-            })
-            .catch(err => console.log(err));
+  const removeProduts = (id: number) => setUserCart(prevProducts => prevProducts.filter(product => product.id !== id));
 
-    }, [])
-    
-    const addProduts = (id: number) => {
+  const removeAll = () => setUserCart([]);
+  
+  return (
+    <CartContext.Provider
+      value={{ removeAll, addProduts, removeProduts, shop, userCart }}
+    >
+      {children}
+    </CartContext.Provider>
+  )
+}
 
-    };
-
-    const removeProduts = (id: number) => {
-
-    };
-
-    const removeAll = () => {
-
-    };
-
-    return (
-        <CartContext.Provider value={{removeAll, addProduts, removeProduts,shop, userCart }}>
-            {children}
-        </CartContext.Provider>
-    );
-};
-
-export default CartContextProvider;
+export default CartContextProvider
