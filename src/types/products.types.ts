@@ -8,5 +8,6 @@ export type Produts = {
     rating: {
         rate: number;
         count: number;
-    }
+    },
+    count: number
 };

@@ -30,7 +30,26 @@ const CartContextProvider = ({ children }: CartProps) => {
       .catch((err) => console.log(err))
   }, [])
 
-  const addProduts = (id: number) => {}
+  const addProduts = (id: number) => {
+    setUserCart(prevProducts => {
+
+      const mainProductInCart = userCart.find(product => product.id === id);
+
+      if (mainProductInCart) {
+        return prevProducts.map(product => {
+          if (product.id === id) {
+            return {...product, count:product.count + 1}
+          } else {
+            return product;
+          }
+        })
+      } else {
+        const mainProductInShop = shop.find(product => product.id === id) as Produts;
+        return [...prevProducts, {...mainProductInShop, count:1}]
+      }
+      return []
+    })
+  }
 
   const removeProduts = (id: number) => setUserCart(prevProducts => prevProducts.filter(product => product.id !== id));
 
