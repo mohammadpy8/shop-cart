@@ -1,9 +1,34 @@
-import React from 'react'
+import React, {useContext} from 'react'
 
 import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
 import { Produts } from '../../types/products.types'
+import { CartContext } from '../../context/CartContextProvider'
+import swal from 'sweetalert'
+import { useNavigate } from 'react-router-dom'
 
 const Card = ({ id, title, image, price, rating: { rate } }: Produts) => {
+
+    const CartContextProduct = useContext(CartContext);
+
+    const { addProduts } = CartContextProduct;
+
+    const navigate = useNavigate();
+    
+    const addToBasketHandler = () => {
+        addProduts(id);
+        swal({
+            title: "محصول به سبد خرید اضافه شد.",
+            icon: "success",
+            buttons: ["اوکی","رفتن به سبد خرید"]
+        })
+            .then(result => {
+            console.log(result);
+                if (result) {
+                    navigate("/cart");
+            }
+        })
+    }
+
   return (
     <div className="card">
       <img src={image} alt="products" />
@@ -24,7 +49,7 @@ const Card = ({ id, title, image, price, rating: { rate } }: Produts) => {
           </div>
           <p>{price}$</p>
         </div>
-        <button>Add to Basket</button>
+        <button onClick={addToBasketHandler}>Add to Basket</button>
       </main>
     </div>
   )
