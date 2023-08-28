@@ -1,47 +1,59 @@
-import React, { useContext } from "react";
-import "./Cart.css";
-import { AiFillStar, AiOutlineDelete, AiOutlineStar } from "react-icons/ai";
-export default function Cart() {
+import React, { useContext } from 'react'
+import './Cart.css'
+import { AiFillStar, AiOutlineDelete, AiOutlineStar } from 'react-icons/ai'
+import { CartContext } from '../context/CartContextProvider'
+import { Produts } from '../types/products.types'
+
+const Cart: React.FC<Produts> = () => {
+  const CartShop = useContext(CartContext)
+
+  const { removeAll, removeProduts } = CartShop
+
   return (
     <>
-      {true ? ( // if shoppping cart is not empty
+      {CartShop.userCart.length !== 0 ? ( // if shoppping cart is not empty
         <>
           <section className="cart-topbar">
             <p className="title">All Products In Basket:</p>
-            <button>
+            <button onClick={() => removeAll()}>
               Remove All Product <AiOutlineDelete className="delete-icon" />
             </button>
           </section>
           <main className="card-index">
-            <div className="card">
-              <img
-                src="https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg"
-                alt=""
-              />
-              <main>
-                <p>Test Title ...</p>
-                <div className="card-details">
-                  <div>
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-                    <AiFillStar style={{ color: "orange" }} />
-
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                    <AiOutlineStar style={{ color: "orange" }} />
-                  </div>
-                  <p>111$</p>
+            {
+              CartShop.userCart.map(product => {
+                const { id, image, title, rating: { rate }, count, price } = product;
+                return (
+                  <div className="card">
+                  <img src={image} alt="products" />
+                  <main>
+                    <p>{title.slice(0, 15)}</p>
+                    <div className="card-details">
+                      <div>
+                        {Array(Math.ceil(rate))
+                          .fill(0)
+                          .map(() => (
+                            <AiFillStar style={{ color: 'orange' }} />
+                          ))}
+                        {Array(5 - Math.ceil(rate))
+                          .fill(0)
+                          .map(() => (
+                            <AiOutlineStar style={{ color: 'orange' }} />
+                          ))}
+                      </div>
+                      <p>{price}$</p>
+                    </div>
+                    <div className="product-count">
+                      <p>Count: {count}</p>
+                    </div>
+                    <button onClick={() => removeProduts(id)}>
+                      Remove From Basket
+                    </button>
+                  </main>
                 </div>
-                <div className="product-count">
-                  <p>Count: 22</p>
-                </div>
-                <button>Remove From Basket</button>
-              </main>
-            </div>
+                )
+              })
+            }
           </main>
         </>
       ) : (
@@ -51,5 +63,7 @@ export default function Cart() {
         </div>
       )}
     </>
-  );
+  )
 }
+
+export default Cart

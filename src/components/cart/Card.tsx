@@ -21,7 +21,7 @@ const Card: React.FC<Produts> = ({ id, title, image, price, rating: { rate } }) 
             icon: "success",
             buttons: ["اوکی", "رفتن به سبد خرید"]
         })
-            .then(result => {
+            .th4en(result => {
                 console.log(result);
                 if (result) {
                     navigate("/cart");
