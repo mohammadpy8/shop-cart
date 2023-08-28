@@ -6,7 +6,7 @@ import { CartContext } from '../../context/CartContextProvider'
 import swal from 'sweetalert'
 import { useNavigate } from 'react-router-dom'
 
-const Card = ({ id, title, image, price, rating: { rate } }: Produts) => {
+const Card: React.FC<Produts> = ({ id, title, image, price, rating: { rate } }) => {
 
     const CartContextProduct = useContext(CartContext);
 
@@ -19,15 +19,15 @@ const Card = ({ id, title, image, price, rating: { rate } }: Produts) => {
         swal({
             title: "محصول به سبد خرید اضافه شد.",
             icon: "success",
-            buttons: ["اوکی","رفتن به سبد خرید"]
+            buttons: ["اوکی", "رفتن به سبد خرید"]
         })
             .then(result => {
-            console.log(result);
+                console.log(result);
                 if (result) {
                     navigate("/cart");
-            }
-        })
-    }
+                }
+            })
+    };
 
   return (
     <div className="card">
